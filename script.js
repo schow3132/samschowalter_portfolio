@@ -8,7 +8,7 @@ document.querySelectorAll(".photo img").forEach(function (img) {
 var year = document.getElementById("year");
 if (year) year.textContent = new Date().getFullYear();
 
-// Scroll animations: photos get a purple "swipe" reveal, text fades up in sequence.
+// Scroll animations: photos wipe in, text fades up in sequence.
 // The "js" class is only added when animation can actually run, so nothing is ever left hidden.
 var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 if ("IntersectionObserver" in window && !reduceMotion) {
