@@ -234,6 +234,7 @@ body.menu-open .menu { opacity: 1; visibility: visible; }
 }
 .tile:hover { background: var(--purple); border-color: var(--purple); }
 .tile:hover p, .tile:hover .tile__go { color: #fff; }
+.tile:last-child:nth-child(odd) { grid-column: 1 / -1; }
 
 /* ---------- WHY I INVEST ---------- */
 .why { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; }
@@ -296,6 +297,8 @@ body.menu-open .menu { opacity: 1; visibility: visible; }
 }
 .section--light .card { background: #f3f3f3; border: 0; border-left: 4px solid var(--purple); }
 .section--light .card p { color: #333; }
+.card--wide { grid-column: 1 / -1; }
+.card--wide p:not(.card__tag) { max-width: 52em; }
 
 /* ---------- BEYOND WORK ---------- */
 .feature {
