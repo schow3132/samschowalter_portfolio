@@ -8,14 +8,29 @@ document.querySelectorAll(".photo img").forEach(function (img) {
 var year = document.getElementById("year");
 if (year) year.textContent = new Date().getFullYear();
 
-// Fade content in as it scrolls into view.
-if ("IntersectionObserver" in window) {
+// Scroll animations: photos get a purple "swipe" reveal, text fades up in sequence.
+// The "js" class is only added when animation can actually run, so nothing is ever left hidden.
+var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+if ("IntersectionObserver" in window && !reduceMotion) {
+  document.documentElement.classList.add("js");
+
   var io = new IntersectionObserver(function (entries) {
     entries.forEach(function (e) {
       if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); }
     });
-  }, { threshold: 0.12 });
-  document.querySelectorAll(".chapter, .card, .feature, .also, .tile, .stat, .glance__lead, .questions li").forEach(function (el) {
+  }, { threshold: 0.15, rootMargin: "0px 0px -8% 0px" });
+
+  // Photos: swipe reveal
+  document.querySelectorAll(".photo").forEach(function (el) { io.observe(el); });
+
+  // Text and cards: fade up, staggered by position within their group
+  var targets = document.querySelectorAll(
+    ".chapter__text > *, .feature__text > *, .also > div > *, .compare__note, .video, " +
+    ".card, .tile, .stat, .glance__lead, .questions li"
+  );
+  targets.forEach(function (el) {
+    var idx = Array.prototype.indexOf.call(el.parentNode.children, el);
+    el.style.transitionDelay = Math.min(idx, 5) * 60 + "ms";
     el.classList.add("reveal");
     io.observe(el);
   });
