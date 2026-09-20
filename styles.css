@@ -112,6 +112,7 @@ body.menu-open .menu { opacity: 1; visibility: visible; }
 .btn--outline { background: transparent; color: var(--white); border-color: var(--white); }
 .btn--outline:hover { background: var(--white); color: var(--purple); }
 .btn.todo { background: #fff3a8; border-color: #fff3a8; }
+.btn--email { text-transform: none; letter-spacing: .03em; font-size: .95rem; }
 
 /* ---------- PHOTOS (angled corner cuts) ---------- */
 .photo {
@@ -139,6 +140,18 @@ body.menu-open .menu { opacity: 1; visibility: visible; }
   color: var(--muted); font-size: .85rem; line-height: 1.6;
 }
 .photo--tall.missing::before, .photo--portrait.missing::before { aspect-ratio: 4 / 5; }
+
+/* Before / after pair */
+.compare { display: grid; gap: 20px; }
+.compare .photo { --cut: 28px; }
+.photo__label {
+  position: absolute; left: 0; bottom: 0; z-index: 2; padding: 7px 16px;
+  font-family: var(--display); font-weight: 700; font-size: .72rem; letter-spacing: .16em; text-transform: uppercase;
+  color: var(--white); background: var(--black);
+}
+.photo__label--after { background: var(--purple); }
+.compare__note { margin: 0; font-size: .92rem; color: #555; }
+.section--light .chapter .compare__note { color: #555; }
 
 /* ---------- HERO (home) ---------- */
 .hero { position: relative; overflow: hidden; background: var(--black); padding: 72px 0 96px; }
