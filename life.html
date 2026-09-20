@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Beyond Work | Sam Schowalter</title>
+  <meta name="description" content="Golf, piano, travel, hockey, and the other things I do outside of work.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:opsz,wght@6..12,300;6..12,400;6..12,600&family=Outfit:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <header class="nav">
+    <a class="nav__brand" href="index.html">Sam Schowalter</a>
+    <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="menu" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </header>
+
+  <nav id="menu" class="menu" aria-label="Primary">
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="why.html">Why I invest</a></li>
+      <li><a href="story.html">My story</a></li>
+      <li><a href="experience.html">Experience</a></li>
+      <li><a href="life.html" aria-current="page">Beyond work</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </nav>
+
+  <main id="top">
+
+    <section class="page-head">
+      <div class="beam" aria-hidden="true"></div>
+      <div class="wrap">
+        <p class="eyebrow">Beyond work</p>
+        <h1>Outside the Office.</h1>
+        <p class="lede">What I do when I'm not working: golf, piano, travel, and hockey, plus a few other things I can't stay away from.</p>
+      </div>
+    </section>
+
+    <section class="section section--dark">
+      <div class="wrap">
+
+        <article class="feature">
+          <div class="feature__text">
+            <h3>Golf</h3>
+            <p>
+              I really love golf, and a big part of that is that it's a mental challenge every
+              time you play. I've played for a long time now. My home course is Deer Run in
+              Victoria, MN, and my goal is to get to scratch.
+            </p>
+          </div>
+          <div class="feature__media">
+            <figure class="photo photo--tall" data-file="images/golf-sunset.jpg">
+              <img src="images/golf-sunset.jpg" alt="Sunset over a golf course from the green" loading="lazy">
+              <figcaption>Evening on the course.</figcaption>
+            </figure>
+            <figure class="photo photo--tall" data-file="images/golf-action.jpg">
+              <img src="images/golf-action.jpg" alt="Sam finishing a golf swing on the range" loading="lazy">
+              <figcaption>Putting in the reps.</figcaption>
+            </figure>
+          </div>
+        </article>
+
+        <article class="feature">
+          <div class="feature__text">
+            <h3>Piano</h3>
+            <p>
+              I started playing as a kid, but I didn't pick it up seriously until COVID,
+              when I began teaching myself. My favorite piece is Rachmaninoff's Piano
+              Sonata No. 2, second movement.
+            </p>
+          </div>
+          <div class="feature__media feature__media--single">
+            <figure class="video">
+              <video controls preload="none" playsinline poster="images/piano-poster.jpg" src="images/piano-clip.mov" aria-label="Video of Sam playing a grand piano"></video>
+            </figure>
+          </div>
+        </article>
+
+        <article class="feature">
+          <div class="feature__text">
+            <h3>Travel</h3>
+            <p>
+              My favorite trip so far was to San Francisco to visit one of my best friends.
+              I got to scale mountains and see the beautiful landscape of California.
+            </p>
+          </div>
+          <div class="feature__media">
+            <figure class="photo photo--tall" data-file="images/travel-1.jpg">
+              <img src="images/travel-1.jpg" alt="Looking out over a lake and green hills from a rocky overlook in California" loading="lazy">
+              <figcaption>The view from the trail.</figcaption>
+            </figure>
+            <figure class="photo photo--tall" data-file="images/travel-2.jpg">
+              <img src="images/travel-2.jpg" alt="Two friends standing on rocks along the California coast" loading="lazy">
+              <figcaption>Visiting a best friend.</figcaption>
+            </figure>
+          </div>
+        </article>
+
+        <article class="feature">
+          <div class="feature__text">
+            <h3>Hockey</h3>
+            <p>
+              I love hockey. I played goalie for most of my career, and I'm a big Kings fan.
+            </p>
+          </div>
+          <div class="feature__media feature__media--single">
+            <figure class="photo" data-file="images/st-cloud-hockey-2.jpg">
+              <img src="images/st-cloud-hockey-2.jpg" alt="Sam in goal for the Granite City Lumberjacks" loading="lazy">
+              <figcaption>In net for the Lumberjacks.</figcaption>
+            </figure>
+          </div>
+        </article>
+
+        <div class="also">
+          <figure class="photo photo--tall" data-file="images/boating.jpg">
+            <img src="images/boating.jpg" alt="Evening light over a Minnesota lake from a pontoon boat" loading="lazy">
+            <figcaption>Evening on the lake.</figcaption>
+          </figure>
+          <div>
+            <h3>Also into</h3>
+            <ul class="chips">
+              <li>Walleye fishing</li>
+              <li>Architecture</li>
+              <li>Landscaping</li>
+              <li>Poker</li>
+              <li>Sushi</li>
+              <li>The Wire</li>
+              <li>Vikings football</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- NEXT -->
+    <div class="next">
+      <div class="wrap">
+        <a class="next__link" href="contact.html">
+          <span><span class="next__label">Next</span><span class="next__title">Let's Connect.</span></span>
+          <span class="next__arrow" aria-hidden="true">→</span>
+        </a>
+      </div>
+    </div>
+
+  </main>
+
+  <footer class="footer">
+    <p>© <span id="year">2026</span> Sam Schowalter · <a href="https://www.linkedin.com/in/sam-schowalter-80709a318/" target="_blank" rel="noopener">LinkedIn</a></p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
