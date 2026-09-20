@@ -153,8 +153,6 @@ body.menu-open .menu { opacity: 1; visibility: visible; }
   color: var(--white); background: var(--black);
 }
 .photo__label--after { background: var(--accent); color: var(--ink); }
-.compare__note { margin: 0; font-size: .92rem; color: #555; }
-.section--light .chapter .compare__note { color: #555; }
 
 /* ---------- HERO (home) ---------- */
 .hero { position: relative; overflow: hidden; background: var(--black); padding: 72px 0 96px; }
@@ -406,6 +404,23 @@ body.menu-open .menu { opacity: 1; visibility: visible; }
 .js .photo.in img { clip-path: inset(0 0 0 0); transform: scale(1); }
 /* Side-by-side pairs: the second photo follows a beat behind the first */
 .js .feature__media .photo:nth-child(2) img { transition-delay: .15s; }
+/* Collage: each photo reveals with a true 45-degree wipe that sweeps toward its bottom-right
+   corner, and the tiles follow one another from top-left to bottom-right. (The gradient angle
+   is a real 45 degrees on any tile shape, unlike a percentage-based clip.) */
+@property --wipe-p { syntax: "<percentage>"; inherits: false; initial-value: 0%; }
+.js .collage .photo img {
+  --wipe-p: 0%; clip-path: none;
+  -webkit-mask-image: linear-gradient(135deg, #000 var(--wipe-p), transparent var(--wipe-p));
+  mask-image: linear-gradient(135deg, #000 var(--wipe-p), transparent var(--wipe-p));
+  transition: --wipe-p 1s cubic-bezier(.65, 0, .25, 1), transform 1.13s cubic-bezier(.22, .61, .36, 1);
+}
+.js .collage .photo.in img { --wipe-p: 101%; clip-path: none; }
+.js .collage .photo.collage__b img { transition-delay: 0s; }
+.js .collage .photo.collage__c img { transition-delay: .09s; }
+.js .collage .photo.collage__a img { transition-delay: .14s; }
+.js .collage .photo.collage__d img { transition-delay: .2s; }
+.js .collage .photo.collage__e img { transition-delay: .28s; }
+.js .collage .photo.collage__f img { transition-delay: .36s; }
 .js .photo figcaption, .js .photo .photo__label { opacity: 0; transition: opacity .5s ease .38s; }
 .js .photo.in figcaption, .js .photo.in .photo__label { opacity: 1; }
 
@@ -421,7 +436,7 @@ body.menu-open .menu { opacity: 1; visibility: visible; }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .reveal { opacity: 1; transform: none; transition: none; }
-  .photo img { clip-path: none !important; transform: none !important; transition: none; }
+  .photo img { clip-path: none !important; -webkit-mask-image: none !important; mask-image: none !important; transform: none !important; transition: none; }
   .photo figcaption, .photo .photo__label { opacity: 1 !important; transition: none; }
   .page-head .wrap > *, .hero__text > *, .beam { animation: none; }
   .btn, .menu, .menu a, .nav__toggle span, .tile, .next__arrow, .next__title { transition: none; }
