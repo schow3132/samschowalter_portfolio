@@ -43,7 +43,7 @@ if ("IntersectionObserver" in window && !reduceMotion) {
   // Text and cards: fade up, staggered by position within their group
   var targets = document.querySelectorAll(
     ".chapter__text > *, .feature__text > *, .also > div > *, .compare__note, .video, " +
-    ".card, .tile, .stat strong, .stat__main span, .stat__date, .glance__lead, .questions li"
+    ".card, .tile, .tl li, .glance__lead, .questions li"
   );
   targets.forEach(function (el) {
     var idx = Array.prototype.indexOf.call(el.parentNode.children, el);

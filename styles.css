@@ -193,42 +193,32 @@ body.menu-open .menu { opacity: 1; visibility: visible; }
   --c: 72px;
   background: var(--white); color: var(--black); padding: 56px 48px 56px;
   clip-path: polygon(0 0, calc(100% - var(--c)) 0, 100% var(--c), 100% 100%, var(--c) 100%, 0 calc(100% - var(--c)));
-  /* Two shared columns: every organization name in the first, every role descriptor in the
-     second, so all the descriptors start on the same vertical axis. */
-  display: grid; grid-template-columns: max-content 1fr; column-gap: 20px; align-items: start;
 }
-/* Timeline rows: the organization, then its date chip underneath. Past dates are outlined,
-   the present is filled in, and upcoming ones are dashed, so the progression reads at a glance.
-   (.stat and .stat__main only group the markup; their children sit directly on the panel grid.) */
-.stat, .stat__main { display: contents; }
-.stat + .stat strong, .stat + .stat .stat__main span { margin-top: 40px; }
-.stat__date {
-  grid-column: 1 / -1; justify-self: start; margin-top: 12px;
-  padding: 8px 14px; border: 1.5px solid var(--black); color: var(--black);
-  font-family: var(--display); font-weight: 700; font-size: .78rem; line-height: 1.2;
-  letter-spacing: .1em; text-transform: uppercase; white-space: nowrap;
+/* Timeline: just type on a thin rail. Each row has a small square marker: outlined for the past,
+   filled for the present, dashed for what's coming. The date sits under the name, and the present
+   also gets the logo's small triangle and a solid underline. */
+.tl { --s: clamp(1.7rem, 3.6vw, 2.5rem); list-style: none; margin: 0; padding: 0 0 0 38px; }
+.tl li { position: relative; margin-top: 40px; }
+.tl li:first-child { margin-top: 0; }
+.tl strong { display: block; width: fit-content; font-family: var(--display); font-weight: 700; font-size: var(--s); line-height: 1; }
+.tl li::before {                      /* the marker, centered on the name */
+  content: ""; position: absolute; z-index: 1; left: -38px; top: calc(var(--s) * .5 - 5px);
+  width: 10px; height: 10px; background: var(--white); border: 1.5px solid var(--black);
 }
-.stat--now .stat__date { background: var(--black); color: var(--white); }
-.stat--now .stat__date::before {
-  content: ""; display: inline-block; width: 8px; height: 8px; margin-right: 9px; background: var(--accent);
+.tl li:not(:last-child)::after {      /* the rail, running to the next marker */
+  content: ""; position: absolute; left: -33.75px; top: calc(var(--s) * .5); width: 1.5px; height: calc(100% + 40px);
+  background: var(--black);
+}
+.tl li.now::before { background: var(--black); }
+.tl li.upcoming::before { border-style: dashed; }
+.tl__date, .tl__role { display: block; font-family: var(--display); text-transform: uppercase; }
+.tl__date { margin-top: 12px; font-weight: 700; font-size: .78rem; letter-spacing: .1em; line-height: 1.3; }
+.tl__role { margin-top: 4px; max-width: 26em; font-weight: 600; font-size: .72rem; letter-spacing: .07em; line-height: 1.5; color: #555; }
+.tl .now strong { padding-bottom: 5px; border-bottom: 2px solid var(--black); }
+.tl .now .tl__date::before {
+  content: ""; display: inline-block; width: 8px; height: 8px; margin-right: 8px; background: var(--black);
   clip-path: polygon(0 0, 100% 0, 100% 100%);
 }
-.stat--next .stat__date { border-style: dashed; }
-/* Trim the empty space above each line so the tops of the letters (the title and the role
-   label) line up exactly. Browsers without support still get top-aligned boxes. */
-@supports (text-box: trim-start cap alphabetic) {
-  .stat strong, .stat__main span { text-box: trim-start cap alphabetic; }
-}
-.stat strong {
-  font-family: var(--display); font-weight: 700; font-size: clamp(1.7rem, 3.6vw, 2.5rem); line-height: 1;
-  padding-bottom: 6px; border-bottom: 1px solid var(--black);
-}
-.stat__main span {
-  max-width: 22em; padding-bottom: 6px;
-  font-family: var(--display); font-weight: 600; font-size: .72rem; line-height: 1.3;
-  letter-spacing: .06em; text-transform: uppercase;
-}
-
 /* ---------- SECTIONS ---------- */
 .section { position: relative; padding: 104px 0; }
 .section--light { background: var(--white); color: #111; font-weight: 400; }
@@ -460,7 +450,6 @@ body.menu-open .menu { opacity: 1; visibility: visible; }
   .cards { grid-template-columns: 1fr; }
   .glance { padding: 64px 0; }
   .glance__panel { --c: 40px; padding: 44px 24px 48px; }
-  .stat + .stat strong, .stat + .stat .stat__main span { margin-top: 34px; }
   .photo--portrait { --cut: 48px; }
   .questions li { padding: 20px 20px 20px 62px; }
   .questions li::before { left: 20px; }
@@ -470,10 +459,4 @@ body.menu-open .menu { opacity: 1; visibility: visible; }
   .section--accent.cta::before { width: 46%; height: 28%; }
   .section.quote { padding-bottom: 150px; }
   .quote::before { width: 46%; height: 90px; }
-}
-
-/* Very narrow phones: stack each role descriptor under its name (still on one shared left edge) */
-@media (max-width: 460px) {
-  .glance__panel { grid-template-columns: 1fr; }
-  .stat__main span, .stat + .stat .stat__main span { margin-top: 12px; max-width: none; }
 }
