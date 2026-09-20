@@ -186,27 +186,48 @@ body.menu-open .menu { opacity: 1; visibility: visible; }
   background: radial-gradient(rgba(255, 255, 255, .55) 1.4px, transparent 1.9px) 0 0 / 30px 30px;
   -webkit-mask-image: linear-gradient(90deg, #000, transparent 65%); mask-image: linear-gradient(90deg, #000, transparent 65%);
 }
-.glance .wrap { position: relative; display: grid; grid-template-columns: 1fr 1.1fr; gap: 56px; align-items: center; }
+.glance .wrap { position: relative; display: grid; grid-template-columns: .75fr 1.25fr; gap: 56px; align-items: center; }
 .glance .eyebrow { color: var(--white); }
 .glance__lead { font-family: var(--display); font-weight: 600; font-size: clamp(1.6rem, 3.2vw, 2.4rem); line-height: 1.2; margin: 0; max-width: 14em; }
 .glance__panel {
   --c: 72px;
-  background: var(--white); color: var(--black); padding: 24px 48px 56px;
+  background: var(--white); color: var(--black); padding: 56px 48px 56px;
   clip-path: polygon(0 0, calc(100% - var(--c)) 0, 100% var(--c), 100% 100%, var(--c) 100%, 0 calc(100% - var(--c)));
+  /* Two shared columns: every organization name in the first, every role descriptor in the
+     second, so all the descriptors start on the same vertical axis. */
+  display: grid; grid-template-columns: max-content 1fr; column-gap: 20px; align-items: start;
 }
-.stat { display: flex; align-items: flex-end; gap: 16px; margin-top: 32px; }
+/* Timeline rows: the organization, then its date chip underneath. Past dates are outlined,
+   the present is filled in, and upcoming ones are dashed, so the progression reads at a glance.
+   (.stat and .stat__main only group the markup; their children sit directly on the panel grid.) */
+.stat, .stat__main { display: contents; }
+.stat + .stat strong, .stat + .stat .stat__main span { margin-top: 40px; }
+.stat__date {
+  grid-column: 1 / -1; justify-self: start; margin-top: 12px;
+  padding: 8px 14px; border: 1.5px solid var(--black); color: var(--black);
+  font-family: var(--display); font-weight: 700; font-size: .78rem; line-height: 1.2;
+  letter-spacing: .1em; text-transform: uppercase; white-space: nowrap;
+}
+.stat--now .stat__date { background: var(--black); color: var(--white); }
+.stat--now .stat__date::before {
+  content: ""; display: inline-block; width: 8px; height: 8px; margin-right: 9px; background: var(--accent);
+  clip-path: polygon(0 0, 100% 0, 100% 100%);
+}
+.stat--next .stat__date { border-style: dashed; }
+/* Trim the empty space above each line so the tops of the letters (the title and the role
+   label) line up exactly. Browsers without support still get top-aligned boxes. */
+@supports (text-box: trim-start cap alphabetic) {
+  .stat strong, .stat__main span { text-box: trim-start cap alphabetic; }
+}
 .stat strong {
-  font-family: var(--display); font-weight: 700; font-size: clamp(1.9rem, 4.4vw, 3rem); line-height: 1;
+  font-family: var(--display); font-weight: 700; font-size: clamp(1.7rem, 3.6vw, 2.5rem); line-height: 1;
   padding-bottom: 6px; border-bottom: 1px solid var(--black);
 }
-.stat span {
-  max-width: 13em; padding-bottom: 6px;
+.stat__main span {
+  max-width: 22em; padding-bottom: 6px;
   font-family: var(--display); font-weight: 600; font-size: .72rem; line-height: 1.3;
   letter-spacing: .06em; text-transform: uppercase;
 }
-.stat:nth-child(2) { margin-left: 8%; }
-.stat:nth-child(3) { margin-left: 2%; }
-.stat:nth-child(4) { margin-left: 12%; }
 
 /* ---------- SECTIONS ---------- */
 .section { position: relative; padding: 104px 0; }
@@ -438,8 +459,8 @@ body.menu-open .menu { opacity: 1; visibility: visible; }
   .wrap { padding: 0 20px; }
   .cards { grid-template-columns: 1fr; }
   .glance { padding: 64px 0; }
-  .glance__panel { --c: 40px; padding: 8px 24px 44px; }
-  .stat, .stat:nth-child(n) { margin-left: 0; flex-wrap: wrap; gap: 8px 14px; }
+  .glance__panel { --c: 40px; padding: 44px 24px 48px; }
+  .stat + .stat strong, .stat + .stat .stat__main span { margin-top: 34px; }
   .photo--portrait { --cut: 48px; }
   .questions li { padding: 20px 20px 20px 62px; }
   .questions li::before { left: 20px; }
@@ -449,4 +470,10 @@ body.menu-open .menu { opacity: 1; visibility: visible; }
   .section--accent.cta::before { width: 46%; height: 28%; }
   .section.quote { padding-bottom: 150px; }
   .quote::before { width: 46%; height: 90px; }
+}
+
+/* Very narrow phones: stack each role descriptor under its name (still on one shared left edge) */
+@media (max-width: 460px) {
+  .glance__panel { grid-template-columns: 1fr; }
+  .stat__main span, .stat + .stat .stat__main span { margin-top: 12px; max-width: none; }
 }
