@@ -360,9 +360,9 @@ body.menu-open .menu { opacity: 1; visibility: visible; }
 
 /* ---------- SCROLL ANIMATION ---------- */
 /* Text and cards: fade up. (Only active when script.js adds the "js" class.) */
-.reveal { opacity: 0; transform: translateY(16px); transition: opacity .55s ease, transform .55s cubic-bezier(.22, .61, .36, 1); }
+.reveal { opacity: 0; transform: translateY(16px); transition: opacity .69s ease, transform .69s cubic-bezier(.22, .61, .36, 1); }
 .reveal.in { opacity: 1; transform: none; }
-.tile.reveal { transition: opacity .55s ease, transform .55s cubic-bezier(.22, .61, .36, 1), background .2s, border-color .2s; }
+.tile.reveal { transition: opacity .69s ease, transform .69s cubic-bezier(.22, .61, .36, 1), background .2s, border-color .2s; }
 
 /* Photos: a quick wipe reveals the image, with a slight settle. It wipes in from the left on
    odd items and from the right on even ones. */
@@ -372,20 +372,22 @@ body.menu-open .menu { opacity: 1; visibility: visible; }
 .js .compare .photo:nth-of-type(even) { --wipe: inset(0 0 0 100%); }
 .js .photo img {
   clip-path: var(--wipe); transform: scale(1.05);
-  transition: clip-path .7s cubic-bezier(.65, 0, .25, 1), transform .9s cubic-bezier(.22, .61, .36, 1);
+  transition: clip-path .88s cubic-bezier(.65, 0, .25, 1), transform 1.13s cubic-bezier(.22, .61, .36, 1);
 }
 .js .photo.in img { clip-path: inset(0 0 0 0); transform: scale(1); }
-.js .photo figcaption, .js .photo .photo__label { opacity: 0; transition: opacity .4s ease .3s; }
+/* Side-by-side pairs: the second photo follows a beat behind the first */
+.js .feature__media .photo:nth-child(2) img { transition-delay: .15s; }
+.js .photo figcaption, .js .photo .photo__label { opacity: 0; transition: opacity .5s ease .38s; }
 .js .photo.in figcaption, .js .photo.in .photo__label { opacity: 1; }
 
 /* Page headers: text rises in on load and the purple beam sweeps across */
 @keyframes rise { from { opacity: 0; transform: translateY(16px); } }
 @keyframes beam-in { from { clip-path: polygon(100% 0, 100% 0, 100% 0); } }
-.js .page-head .wrap > *, .js .hero__text > * { animation: rise .6s cubic-bezier(.22, .61, .36, 1) both; }
-.js .page-head .wrap > :nth-child(2), .js .hero__text > :nth-child(2) { animation-delay: .08s; }
-.js .page-head .wrap > :nth-child(3), .js .hero__text > :nth-child(3) { animation-delay: .16s; }
-.js .hero__text > :nth-child(4) { animation-delay: .24s; }
-.js .beam { animation: beam-in .8s cubic-bezier(.65, 0, .25, 1) both; }
+.js .page-head .wrap > *, .js .hero__text > * { animation: rise .75s cubic-bezier(.22, .61, .36, 1) both; }
+.js .page-head .wrap > :nth-child(2), .js .hero__text > :nth-child(2) { animation-delay: .1s; }
+.js .page-head .wrap > :nth-child(3), .js .hero__text > :nth-child(3) { animation-delay: .2s; }
+.js .hero__text > :nth-child(4) { animation-delay: .3s; }
+.js .beam { animation: beam-in 1s cubic-bezier(.65, 0, .25, 1) both; }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }

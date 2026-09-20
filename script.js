@@ -14,9 +14,26 @@ var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-moti
 if ("IntersectionObserver" in window && !reduceMotion) {
   document.documentElement.classList.add("js");
 
+  // A fully clipped image is never downloaded while it's lazy, which made the wipe run over an
+  // empty frame. Load photos up front so each one is ready before its wipe starts.
+  document.querySelectorAll(".photo img").forEach(function (img) { img.loading = "eager"; });
+
   var io = new IntersectionObserver(function (entries) {
     entries.forEach(function (e) {
-      if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); }
+      if (!e.isIntersecting) return;
+      var el = e.target;
+      io.unobserve(el);
+      var img = el.classList.contains("photo") && el.querySelector("img");
+      if (img && img.decode) {
+        // Wait until the photo is downloaded and decoded so the wipe is smooth (never a pop-in).
+        // The timeout guarantees a photo is never left hidden if something goes wrong.
+        var done = false;
+        var show = function () { if (!done) { done = true; el.classList.add("in"); } };
+        img.decode().then(show, show);
+        setTimeout(show, 3000);
+      } else {
+        el.classList.add("in");
+      }
     });
   }, { threshold: 0.15, rootMargin: "0px 0px -8% 0px" });
 
@@ -30,7 +47,7 @@ if ("IntersectionObserver" in window && !reduceMotion) {
   );
   targets.forEach(function (el) {
     var idx = Array.prototype.indexOf.call(el.parentNode.children, el);
-    el.style.transitionDelay = Math.min(idx, 5) * 60 + "ms";
+    el.style.transitionDelay = Math.min(idx, 5) * 75 + "ms";
     el.classList.add("reveal");
     io.observe(el);
   });
